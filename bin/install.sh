@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p git
 
-# Exit the script if any statement returns a non-true return value.
+# Exit the script if any statement fails.
 set -o errexit
 
 function usage {

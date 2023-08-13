@@ -5,19 +5,8 @@
     ./audio.nix
     ./bluetooth.nix
     ./network.nix
+    ./programs.nix
   ];
-
-  # Default system packages
-  environment.systemPackages = with pkgs; [
-    git # Necessary for flakes and pushing changes upstream
-    neovim # Better vim
-  ];
-
-  # Setup nvim as the default editor for everything.
-  environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -39,12 +28,9 @@
   # Self-explanatory
   time.timeZone = "America/New_York";
 
-  # Whether to start the ssh agent when you login. The OpenSSH agent remembers
-  # private keys so you don't have to type the passphrase every time.
-  programs.ssh.startAgent = true;
-
-  # A DBus system that allows applications to update firmware.
-  services.fwupd.enable = true;
+  # Set default user login shell.
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
 
   # Daemonless container engine for developing, managing, and running OCI
   # Containers. It is a drop-in replacement for the `docker` command.
