@@ -6,6 +6,7 @@
     ./bluetooth.nix
     ./network.nix
     ./programs.nix
+    ./users.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -27,10 +28,6 @@
 
   # Self-explanatory
   time.timeZone = "America/New_York";
-
-  # Set default user login shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
 
   # Daemonless container engine for developing, managing, and running OCI
   # Containers. It is a drop-in replacement for the `docker` command.
