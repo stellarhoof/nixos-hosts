@@ -46,6 +46,9 @@ usermod -aG wheel $username
 # Allow user to control NetworkManager.
 usermod -aG networkmanager $username
 
+# Allow user to control backlight, and a bunch of other stuff.
+usermod -aG video $username
+
 # Change ownership of this repository to just created username.
 chown -R $username:wheel /etc/nixos
 

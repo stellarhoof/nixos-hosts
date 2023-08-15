@@ -28,8 +28,9 @@
   # Self-explanatory
   time.timeZone = "America/New_York";
 
-  # A DBus system that allows applications to update firmware.
-  services.fwupd.enable = true;
+  # Set default user login shell.
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
 
   # Daemonless container engine for developing, managing, and running OCI
   # Containers. It is a drop-in replacement for the `docker` command.

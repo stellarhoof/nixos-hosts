@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     git # Necessary for flakes and pushing changes upstream
     neovim # Better vim
+    brightnessctl
   ];
 
   # Setup nvim as the default editor for everything.
@@ -10,6 +11,9 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+
+  # A DBus system that allows applications to update firmware.
+  services.fwupd.enable = true;
 
   # Whether to start the ssh agent when you login. The OpenSSH agent stores
   # SSH private keys for the user session.
@@ -25,4 +29,8 @@
   environment.etc."gnupg/gpg-agent.conf".text = ''
     pinentry-program ${pkgs.pinentry.tty}/bin/pinentry
   '';
+
+  services.actkbd.enable = true;
+
+  services.actkbd.bindings = [ ];
 }
