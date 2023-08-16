@@ -2,15 +2,17 @@
   # Default system packages
   environment.systemPackages = with pkgs; [
     git # Necessary for flakes and pushing changes upstream
-    neovim # Better vim
+    nixfmt # Format nix files
+    ripgrep # Better grep
+    fzf # Fuzzy finder for the terminal
     brightnessctl
   ];
 
-  # Setup nvim as the default editor for everything.
-  environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
+  # Install neovim and set as the default editor for everything.
+  programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
+  programs.neovim.viAlias = true;
+  programs.neovim.vimAlias = true;
 
   # A DBus system that allows applications to update firmware.
   services.fwupd.enable = true;

@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   # Set default user login shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
