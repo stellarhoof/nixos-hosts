@@ -1,12 +1,24 @@
 { pkgs, config, ... }: {
   # Default system packages
   environment.systemPackages = with pkgs; [
-    git # Necessary for flakes and pushing changes upstream
-    nixfmt # Format nix files
+    gcc # The standard C compiler
+    clang # More modern C compiler
+    gnumake # The standard build system
+    cmake # More modern build system
+    git # Standard version control
     ripgrep # Better grep
     fzf # Fuzzy finder for the terminal
+    nixfmt # Format nix files
+    nodejs # Node
+    python3 # Python
+    unzip # ZIP files extractor
     brightnessctl
   ];
+
+  # command-not-found fails with some error about an sqlite database, so use
+  # nix-index instead, which is better anyway.
+  programs.command-not-found.enable = false;
+  programs.nix-index.enable = true;
 
   # Install neovim and set as the default editor for everything.
   programs.neovim.enable = true;
