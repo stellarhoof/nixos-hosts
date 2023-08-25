@@ -2,7 +2,9 @@
   networking.hostName = "framework";
 
   # A wifi daemon written by Intel. Mutually exclusive with wpa_supplicant.
-  networking.wireless.iwd.enable = true;
+  # Disabled because sometimes the wireless interface will simply
+  # dissapear and I don't know how to fix.
+  # networking.wireless.iwd.enable = true;
 
   # Enable NetworkManager. Connect with one of:
   # - `nmtui`
@@ -10,7 +12,7 @@
   networking.networkmanager.enable = true;
 
   # Use iwd as the wifi backend for network manager.
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.backend = "iwd";
 
   # Extend default networkmanager functionality.
   networking.networkmanager.plugins = with pkgs;

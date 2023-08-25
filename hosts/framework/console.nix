@@ -1,42 +1,75 @@
-# Relevant: https://wiki.archlinux.org/title/Keyboard_shortcuts
-
 { pkgs, config, ... }: {
-  # Enable setting virtual console options as early as possible (in initrd).
-  console.earlySetup = true;
+  # Use kmscon as the virtual console instead of gettys. kmscon is a
+  # kms/dri-based userpace virtual terminal with more features than the standard
+  # linux console VT (virtual terminal), including:
+  # - Full unicode support
+  # - True color support
+  # - Fontconfig fonts
+  # - xkb keyboard configuration
+  services.kmscon.enable = true;
 
-  # Uses `ckbcomp` to convert `services.xserver.xkb*` options into a
-  # keymap file. Then `console.keyMap` is set to the keymap's path.
-  console.useXkbConfig = true;
+  # Setup font used by kmscon
+  services.kmscon.fonts = [{
+    name = "Iosevka";
+    package = pkgs.iosevka;
+  }];
 
-  # Writes configuration to `/etc/X11/xorg.conf.d/00-keyboard.conf`.
-  services.xserver.xkbOptions = "ctrl:swapcaps";
+  # Unfortunately, nixpkgs does not install the manpage for kmscon, and the man
+  # pages on the internet are for an old version of kmscon, so the most
+  # up-to-date version is at
+  # https://github.com/Aetf/kmscon/blob/develop/docs/man/kmscon.1.xml.in
+  services.kmscon.extraConfig = ''
+    # Default font size. Font size can still be changed using the following
+    # keyboard shortcuts:
+    #   <c--> : decrease font size
+    #   <c-+> : increase font size
+    font-size=18
 
-  # actkbd is a keyboard shortcut daemon that works at the system level. It
-  # does so through reading the events directly from the input devices,
-  # thus working whether a graphical session is running or not.
-  services.actkbd.enable = true;
+    # Swap control and capslock keys
+    xkb-options=ctrl:swapcaps
 
-  # Set keyboard delay/repeat rate in virtual consoles.
-  # https://wiki.archlinux.org/title/Linux_console/Keyboard_configuration#Systemd_service
-  # `<nixpkgs>/nixos/modules/services/wayland/cage.nix`
-  systemd.services.kbdrate = {
-    description = "Keyboard repeat rate in TTY";
-    wantedBy = [ "multi-user.target" ];
-    conflicts = [ "getty@tty8.service" ];
-    after = [ "getty@tty8.service" ];
-    unitConfig = { ConditionPathExists = "/dev/tty8"; };
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = "yes";
-      # The X server starts on tty7, which is the last one with a virtual
-      # console set up. Do this on tty8 to avoid messing up the virtual
-      # console on the other ttys.
-      TTYPath = "/dev/tty8";
-      StandardInput =
-        "tty-fail"; # Fail to start if cannot control the virtual terminal.
-      StandardOutput = "journal";
-      StandardError = "journal";
-      ExecStart = "${pkgs.kbd}/bin/kbdrate --silent --delay 250 --rate 30";
-    };
-  };
+    # Faster keyboard repeat rate and shorter delay before key repeats
+    xkb-repeat-rate=30
+    xkb-repeat-delay=250
+
+    # Allow keyboard shortcuts to control sessions, which are sort of like
+    # workspaces in a WM or virtual ttys. Information about default shortcuts
+    # are in the manpage, replicated here for convenience:
+    #   <c-logo-left>  : previous session
+    #   <c-logo-right> : next session
+    #   <c-logo-esc>   : dummy (blank) session (why? :/)
+    #   <c-logo-bs>    : kill session
+    #   <c-logo-enter> : new session
+    session-control
+
+    # Tokyonight palette
+    palette=custom
+
+    palette-background=26,27,38
+    palette-foreground=192,202,245
+
+    palette-black=26,27,38
+    palette-red=219,75,75
+    palette-green=158,206,106
+    palette-yellow=224,175,104
+    palette-blue=61,89,161
+    palette-magenta=187,154,247
+    palette-cyan=125,207,255
+    palette-dark-grey=26,27,38
+
+    palette-light-grey=169,177,214
+    palette-light-red=247,118,142
+    palette-light-green=195,232,141
+    palette-light-yellow=224,175,104
+    palette-light-blue=137,221,255
+    palette-light-magenta=187,154,247
+    palette-light-cyan=134,225,252
+    palette-white=192,202,245
+  '';
+
+  # TODO: Figure out how to make it play nice with kmscon
+  # services.greetd.enable = true;
+  # services.greetd.settings.default_session.command =
+  #   "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd fish --remember --remember-user-session";
+
 }

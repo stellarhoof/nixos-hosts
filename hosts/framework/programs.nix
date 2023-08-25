@@ -1,19 +1,25 @@
 { pkgs, config, ... }: {
   # Default system packages
   environment.systemPackages = with pkgs; [
-    gcc # The standard C compiler
     clang # More modern C compiler
-    gnumake # The standard build system
     cmake # More modern build system
-    git # Standard version control
-    ripgrep # Better grep
     fzf # Fuzzy finder for the terminal
+    gcc # The standard C compiler
+    git # Standard version control
+    gnumake # The standard build system
+    home-manager # So users can install their own configs
     nixfmt # Format nix files
     nodejs # Node
     python3 # Python
+    ripgrep # Better grep
+    tree # Tree listing of directories
     unzip # ZIP files extractor
-    brightnessctl
   ];
+
+  # Set screen backlight
+  # brillo -S 20 -> set to 20%
+  # brillo -G -> get current level
+  hardware.brillo.enable = true;
 
   # command-not-found fails with some error about an sqlite database, so use
   # nix-index instead, which is better anyway.
@@ -43,8 +49,4 @@
   environment.etc."gnupg/gpg-agent.conf".text = ''
     pinentry-program ${pkgs.pinentry.tty}/bin/pinentry
   '';
-
-  services.actkbd.enable = true;
-
-  services.actkbd.bindings = [ ];
 }

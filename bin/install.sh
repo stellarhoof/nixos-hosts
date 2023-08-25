@@ -36,42 +36,34 @@ fi
 
 # Adapted from https://nixos.org/manual/nixos/stable/#sec-installation-manual
 
-printf "\nSetting up partitions...........\n\n"
-
+# Setup partitions
 parted "$disk" -- mklabel gpt # Create GPT partition table
 parted "$disk" -- mkpart primary 512MB -8GB # Add the root partition
 parted "$disk" -- mkpart primary linux-swap -8GB 100% # Add a swap partition
 parted "$disk" -- mkpart ESP fat32 1MB 512MB # Add the boot partition
 parted "$disk" -- set 3 esp on # The manual said so
 
-printf "\nFormatting partitions...........\n\n"
-
+# Format partitions
 mkfs.ext4 -L nixos "${disk}p1" # Create root partition
 mkswap -L swap "${disk}p2" # Create swap partition
 mkfs.fat -n boot -F 32 "${disk}p3" # Create boot partition
 
-printf "\nMounting partitions...........\n\n"
-
+# Mount partitions
 mount /dev/disk/by-label/nixos /mnt # Mount root partition
 mkdir -p /mnt/boot && mount /dev/disk/by-label/boot /mnt/boot # Mount boot partition
 swapon /dev/disk/by-label/swap # Activate swap in case the NixOS installation uses lots of memory
 
-printf "\nGenerating host configuration...........\n\n"
-
+# Generate host configuration
 nixos-generate-config --root /mnt
 
-printf "\nBacking up host configuration...........\n\n"
-
+# Back up host configuration
 mv /mnt/etc/nixos /mnt/etc/nixos.bak
 
-printf "\nCloning custom host configuration...........\n\n"
-
+# Clone custom host configuration
 git clone https://github.com/stellarhoof/nixos-hosts.git /mnt/etc/nixos && cd /mnt/etc/nixos
 
-printf "\nCopying generated hardware configuration...........\n\n"
-
+# Copy generated hardware configuration
 cp -f ../nixos.bak/hardware-configuration.nix "hosts/$host"
 
-printf "\nInstalling NixOS...........\n\n"
-
+# Install system
 nixos-install --flake ".#$host"

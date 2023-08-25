@@ -19,9 +19,6 @@
   # Delete files in /tmp during boot.
   boot.tmp.cleanOnBoot = true;
 
-  # Enable both flakes and the `nix` command.
-  nix.settings.experimental-features = "flakes nix-command";
-
   # Whether to enable OpenGL drivers. This is needed to enable OpenGL
   # support in X11 systems, as well as Wayland compositors.
   hardware.opengl.enable = true;
@@ -32,6 +29,18 @@
   # Daemonless container engine for developing, managing, and running OCI
   # Containers. It is a drop-in replacement for the `docker` command.
   virtualisation.podman.enable = true;
+
+  # Allow installing unfree packages. This does not allow unfree packages for
+  # individual users though; they have to opt-in in `~/.config/nixpkgs/config.nix`.
+  nixpkgs.config.allowUnfree = true;
+
+  # Configuration for `nix` the package manager. See `nix.conf(5)`
+  nix.settings.experimental-features = "flakes nix-command";
+
+  # Keep outputs and derivations is useful so cached builds of
+  # development shells do not get garbage collected.
+  # Do not delete outputs of non GC roots. 
+  nix.settings.keep-outputs = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
