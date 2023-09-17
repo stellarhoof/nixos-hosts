@@ -55,8 +55,14 @@ swapon /dev/disk/by-label/swap # Activate swap in case the NixOS installation us
 # Clone custom host configuration
 git clone https://github.com/stellarhoof/nixos-hosts.git /mnt/etc/nixos
 
+# Set repository ownership and remote origin
+cd /mnt/etc/nixos && chown -R ah:wheel . && git remote set-url origin git@github.com:stellarhoof/nixos-hosts.git
+
+# Allow any user to perform operations on any repository
+git config --file /mnt/etc/gitconfig --add safe.directory '*'
+
 # Generate host hardware configuration
-nixos-generate-config --dir "/mnt/etc/nixos/hosts/$host"
+nixos-generate-config --root /mnt --dir "/mnt/etc/nixos/hosts/$host"
 
 # Install system
 nixos-install --flake "/mnt/etc/nixos#$host"
