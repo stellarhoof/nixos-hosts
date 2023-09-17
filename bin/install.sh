@@ -53,17 +53,11 @@ mount /dev/disk/by-label/nixos /mnt # Mount root partition
 mkdir -p /mnt/boot && mount /dev/disk/by-label/boot /mnt/boot # Mount boot partition
 swapon /dev/disk/by-label/swap # Activate swap in case the NixOS installation uses lots of memory
 
-# Generate host configuration
-nixos-generate-config --root /mnt
-
-# Back up host configuration
-mv /mnt/etc/nixos /mnt/etc/nixos.bak
-
 # Clone custom host configuration
-git clone https://github.com/stellarhoof/nixos-hosts.git /mnt/etc/nixos && cd /mnt/etc/nixos
+git clone https://github.com/stellarhoof/nixos-hosts.git /mnt/etc/nixos
 
-# Copy generated hardware configuration
-cp -f ../nixos.bak/hardware-configuration.nix "hosts/$host"
+# Generate host hardware configuration
+nixos-generate-config --dir "/mnt/etc/nixos/hosts/$host"
 
 # Install system
-nixos-install --flake ".#$host"
+nixos-install --flake "/mnt/etc/nixos#$host"
