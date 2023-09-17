@@ -1,5 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p git
+#!/usr/bin/env bash
 
 # Exit the script if any statement fails.
 set -o errexit
