@@ -1,4 +1,32 @@
 { pkgs, config, ... }: {
+  # Configure the virtual console keymap from the xserver keyboard settings.
+  console.useXkbConfig = true;
+
+  # - Swap left CTRL with CAPS_LOCK
+  # - Swap left ALT with left SUPER
+  services.xserver.xkbOptions = "ctrl:swapcaps,altwin:swap_lalt_lwin";
+
+  # ms that a key must be depressed before autorepeat starts.
+  services.xserver.autoRepeatDelay = 250;
+
+  # ms that should ellapse between autorepeat generated keystrokes.
+  services.xserver.autoRepeatInterval = 30;
+
+  # Criteria for selecting a display (login) manager:
+  # - Available in nixpkgs: don't want to write a derivation just to use a display manager.
+  # - TTY based: shouldn't have to run a Wayland/X session to bootstrap a Wayland/X session.
+  # - `*.desktop` file sessions support: should pick up `*.desktop` files automatically.
+  services.greetd.enable = true;
+
+  # The closest display manager that satisfies all the above requirements is
+  # greetd combined with tuigreet. Unfortunately tuigreet doesn't follow
+  # symlinks (https://github.com/apognu/tuigreet/issues/73) so it doesn't
+  # automatically pick up `*.desktop` files from $XDG_DATA_DIRS, which means we
+  # would have to hardcode the command, at which point we may as well use
+  # the simpler agreety.
+  services.greetd.settings.default_session.command =
+    "${pkgs.greetd.greetd}/bin/agreety --cmd fish"; # TODO: Use user's shell instead of hardcoding fish
+
   # Use kmscon as the virtual console instead of gettys. kmscon is a
   # kms/dri-based userpace virtual terminal with more features than the standard
   # linux console VT (virtual terminal), including:
@@ -6,7 +34,7 @@
   # - True color support
   # - Fontconfig fonts
   # - xkb keyboard configuration
-  services.kmscon.enable = true;
+  services.kmscon.enable = false;
 
   # Setup font used by kmscon
   services.kmscon.fonts = [{
@@ -66,10 +94,4 @@
     palette-light-cyan=134,225,252
     palette-white=192,202,245
   '';
-
-  # TODO: Figure out how to make it play nice with kmscon
-  # services.greetd.enable = true;
-  # services.greetd.settings.default_session.command =
-  #   "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd fish --remember --remember-user-session";
-
 }

@@ -32,9 +32,6 @@
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
 
-  # A DBus system that allows applications to update firmware.
-  services.fwupd.enable = true;
-
   # Whether to start the ssh agent when you login. The OpenSSH agent stores
   # SSH private keys for the user session.
   programs.ssh.startAgent = true;
@@ -42,6 +39,14 @@
   # Whether to start the gpg agent when you login. The GnuPG agent remembers
   # stores GPG private keys for the user session.
   programs.gnupg.agent.enable = true;
+
+  # Enable the Hyprland Wayland compositor. This is required even if using
+  # home-manager to configure it.
+  programs.hyprland.enable = true;
+  programs.hyprland.xwayland.enable = false;
+
+  # A DBus system that allows applications to update firmware.
+  services.fwupd.enable = true;
 
   # This file should be created by the gnupg module in NixOS when
   # `programs.gnupg.agent.pinentryFlavor` is set but it's not working for some

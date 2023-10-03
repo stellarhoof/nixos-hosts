@@ -1,6 +1,7 @@
 { pkgs, config, ... }: {
   imports = [
     ./hardware-configuration.nix
+    ./overlays.nix
     ./console.nix
     ./audio.nix
     ./bluetooth.nix

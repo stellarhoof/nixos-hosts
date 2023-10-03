@@ -1,10 +1,14 @@
 # nix flake --help
 # Update all inputs: `nix flake update`
 # Update single input: `nix flake lock --update-input <name>`
+# Inspect value of configuration option: `nixos-option <name>`
 
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    # Using nixpkgs unstable to:
+    # - Use hyprland via home-manager
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
   outputs = { self, nixpkgs, nixos-hardware }: {
