@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     clang # More modern C compiler
     cmake # More modern build system
+    eza # Better ls, including tree listing
     fzf # Fuzzy finder for the terminal
     gcc # The standard C compiler
     git # Standard version control
@@ -12,7 +13,6 @@
     nodejs # Node
     python3 # Python
     ripgrep # Better grep
-    tree # Tree listing of directories
     unzip # ZIP files extractor
   ];
 
@@ -39,11 +39,6 @@
   # Whether to start the gpg agent when you login. The GnuPG agent remembers
   # stores GPG private keys for the user session.
   programs.gnupg.agent.enable = true;
-
-  # Enable the Hyprland Wayland compositor. This is required even if using
-  # home-manager to configure it.
-  programs.hyprland.enable = true;
-  programs.hyprland.xwayland.enable = false;
 
   # A DBus system that allows applications to update firmware.
   services.fwupd.enable = true;

@@ -1,11 +1,12 @@
 { pkgs, config, ... }: {
   imports = [
-    ./hardware-configuration.nix
-    ./overlays.nix
-    ./console.nix
     ./audio.nix
     ./bluetooth.nix
+    ./console.nix
+    ./graphical.nix
+    ./hardware-configuration.nix
     ./network.nix
+    ./overlays.nix
     ./programs.nix
     ./users.nix
   ];
