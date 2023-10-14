@@ -39,14 +39,8 @@
   # Whether to start the gpg agent when you login. The GnuPG agent remembers
   # stores GPG private keys for the user session.
   programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.pinentryFlavor = "tty";
 
   # A DBus system that allows applications to update firmware.
   services.fwupd.enable = true;
-
-  # This file should be created by the gnupg module in NixOS when
-  # `programs.gnupg.agent.pinentryFlavor` is set but it's not working for some
-  # reason so I'm creating it manually.
-  environment.etc."gnupg/gpg-agent.conf".text = ''
-    pinentry-program ${pkgs.pinentry.tty}/bin/pinentry
-  '';
 }

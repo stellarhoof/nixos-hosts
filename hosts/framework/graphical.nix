@@ -1,6 +1,6 @@
 { lib, config, ... }: {
   # Blueman is a GTK frontend to BlueZ
-  services.blueman.enable = lib.mkif config.hardware.bluetoot.enable;
+  services.blueman.enable = config.hardware.bluetooth.enable;
 
   # Enable the Hyprland Wayland compositor. This is required even if using
   # home-manager to configure it.
