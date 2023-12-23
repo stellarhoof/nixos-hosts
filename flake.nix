@@ -10,10 +10,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    neovim.url = "github:neovim/neovim?dir=contrib";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = { self, nixpkgs, nixos-hardware }: {
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, ... }: {
     nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         # https://github.com/NixOS/nixos-hardware/blob/master/framework
         nixos-hardware.nixosModules.framework

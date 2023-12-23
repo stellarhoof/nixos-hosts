@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, inputs, config, ... }: {
   # Default system packages
   environment.systemPackages = with pkgs; [
     clang # More modern C compiler
@@ -9,6 +9,7 @@
     git # Standard version control
     gnumake # The standard build system
     home-manager # So users can install their own configs
+    mongosh # Mongo shell
     nixfmt # Format nix files
     nodejs # Node
     python3 # Python
@@ -28,9 +29,12 @@
 
   # Install neovim and set as the default editor for everything.
   programs.neovim.enable = true;
+  programs.neovim.package = inputs.neovim.packages.${pkgs.system}.neovim;
   programs.neovim.defaultEditor = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
+  programs.neovim.withPython3 = false;
+  programs.neovim.withRuby = false;
 
   # Whether to start the ssh agent when you login. The OpenSSH agent stores
   # SSH private keys for the user session.
@@ -43,4 +47,7 @@
 
   # A DBus system that allows applications to update firmware.
   services.fwupd.enable = true;
+
+  services.mongodb.enable = true;
+  services.redis.enable = true;
 }
