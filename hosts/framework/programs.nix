@@ -1,4 +1,10 @@
-{ pkgs, inputs, config, ... }: {
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+{
   # Default system packages
   environment.systemPackages = with pkgs; [
     clang # More modern C compiler
@@ -49,5 +55,5 @@
   services.fwupd.enable = true;
 
   services.mongodb.enable = true;
-  services.redis.enable = true;
+  services.redis.servers.enable = true;
 }
