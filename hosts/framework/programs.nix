@@ -35,12 +35,12 @@
 
   # Install neovim and set as the default editor for everything.
   programs.neovim.enable = true;
-  programs.neovim.package = inputs.neovim.packages.${pkgs.system}.neovim;
   programs.neovim.defaultEditor = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
   programs.neovim.withPython3 = false;
   programs.neovim.withRuby = false;
+  # programs.neovim.package = inputs.neovim-overlay.packages.${pkgs.system}.default;
 
   # Whether to start the ssh agent when you login. The OpenSSH agent stores
   # SSH private keys for the user session.
@@ -54,6 +54,6 @@
   # A DBus system that allows applications to update firmware.
   services.fwupd.enable = true;
 
-  services.mongodb.enable = true;
-  services.redis.servers.enable = true;
+  # services.mongodb.enable = true;
+  # services.redis.enable = true;
 }
