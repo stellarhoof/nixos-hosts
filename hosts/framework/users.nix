@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+{
   # Set default user login shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
@@ -17,29 +19,29 @@
   # `users.users` configuration on activation.
   users.mutableUsers = false;
 
-  # Indicates whether this is an account for a real user. This
-  # automatically sets `group` to "users", `createHome` to `true`,
-  # `home` to "/home/username", `useDefaultShell` to `true`, and
-  # `isSystemUser` to `false`. Exactly one of `isNormalUser` and
-  # `isSystemUser` must be true.
-  users.users.ah.isNormalUser = true;
+  users.users.ah = {
+    # Indicates whether this is an account for a real user. This automatically
+    # sets `group` to "users", `createHome` to `true`, `home` to
+    # "/home/username", `useDefaultShell` to `true`, and `isSystemUser` to
+    # `false`. Exactly one of `isNormalUser` and `isSystemUser` must be true.
+    isNormalUser = true;
 
-  users.users.ah.extraGroups = [
-    # The wheel group is a special user group used on some Unix systems
-    # to control access to the su command.
-    "wheel"
-    # Allows users to control NetworkManager. For example to connect to new
-    # networks.
-    "networkmanager"
-    # Allows users access to a video device, such as the laptop screen, which is
-    # required to set the backlight for example.
-    "video"
-  ];
+    # Short description of the user account, typically the user's full name.
+    description = "Alejandro Hernandez";
 
-  # Short description of the user account, typically the user's full name.
-  users.users.ah.description = "Alejandro Hernandez";
+    # Use `mkpasswd <pass>` to generate this hash.
+    hashedPassword = "$6$asKE3fbnF.L$LddoU0RvwWISACYJsw2Jy3LLjCr.p/ss7W2nMNYkoR6E0WzY7afwxW9JmLoPuQmLvTUfIzVyujGuScSqQlog5.";
 
-  # Use `mkpasswd <pass>` to generate this hash.
-  users.users.ah.hashedPassword =
-    "$6$asKE3fbnF.L$LddoU0RvwWISACYJsw2Jy3LLjCr.p/ss7W2nMNYkoR6E0WzY7afwxW9JmLoPuQmLvTUfIzVyujGuScSqQlog5.";
+    extraGroups = [
+      # The wheel group is a special user group used on some Unix systems to
+      # control access to the su command.
+      "wheel"
+      # Allows users to control NetworkManager. For example to connect to new
+      # networks.
+      "networkmanager"
+      # Allows users access to a video device, such as the laptop screen, which
+      # is required to set the backlight for example.
+      "video"
+    ];
+  };
 }

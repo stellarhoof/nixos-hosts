@@ -1,35 +1,20 @@
-{ pkgs, config, ... }: {
-  # Configure the virtual console keymap from the xserver keyboard settings.
-  console.useXkbConfig = true;
+{ pkgs, config, ... }:
 
-  # - Swap left CTRL with CAPS_LOCK
-  # - Swap left ALT with left SUPER
-  services.xserver.xkbOptions = "ctrl:swapcaps,altwin:swap_lalt_lwin";
+{
+  # Minimal and flexible TTY-based login manager daemon.
+  services.greetd.enable = true;
 
-  # ms that a key must be depressed before autorepeat starts.
-  services.xserver.autoRepeatDelay = 250;
+  # The greeter is what prompts the user for login credentials.
+  services.greetd.settings.default_session = {
+    # `tuigreet` is a simple TTY greeter. Everything after `--cmd` is what gets
+    # run after the user logs in successfully.
+    # NOTE: The `uwsm` module has to be enabled for this to work.
+    command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'uwsm start default'";
+    user = "ah";
+  };
 
-  # ms that should ellapse between autorepeat generated keystrokes.
-  services.xserver.autoRepeatInterval = 30;
-
-  # # Criteria for selecting a display (login) manager:
-  # # - Available in nixpkgs: don't want to write a derivation just to use a display manager.
-  # # - TTY based: shouldn't have to run a Wayland/X session to bootstrap a Wayland/X session.
-  # # - `*.desktop` file sessions support: should pick up `*.desktop` files automatically.
-  # services.greetd.enable = true;
-  #
-  # # The closest display manager that satisfies all the above requirements is
-  # # greetd combined with tuigreet. Unfortunately tuigreet doesn't follow
-  # # symlinks (https://github.com/apognu/tuigreet/issues/73) so it doesn't
-  # # automatically pick up `*.desktop` files from $XDG_DATA_DIRS, which means we
-  # # would have to hardcode the command, at which point we may as well use
-  # # the simpler agreety.
-  # services.greetd.settings.default_session.command =
-  #   "${pkgs.greetd.greetd}/bin/agreety --cmd fish -- --login"; # TODO: Use user's shell instead of hardcoding fish
-
-  # Use kmscon as the virtual console instead of gettys. kmscon is a
-  # kms/dri-based userpace virtual terminal with more features than the standard
-  # linux console VT (virtual terminal), including:
+  # kmscon is a userpace VT (virtual terminal) with more features than the
+  # standard linux console:
   # - Full unicode support
   # - True color support
   # - Fontconfig fonts
@@ -37,15 +22,20 @@
   services.kmscon.enable = false;
 
   # Setup font used by kmscon
-  services.kmscon.fonts = [{
-    name = "Iosevka";
-    package = pkgs.iosevka;
-  }];
+  services.kmscon.fonts = [
+    {
+      name = "Iosevka";
+      package = pkgs.iosevka;
+    }
+  ];
 
   # Unfortunately, nixpkgs does not install the manpage for kmscon, and the man
   # pages on the internet are for an old version of kmscon, so the most
   # up-to-date version is at
   # https://github.com/Aetf/kmscon/blob/develop/docs/man/kmscon.1.xml.in
+  #
+  # TODO: Use https://nix-community.github.io/stylix/options/modules/kmscon.html
+  # instead.
   services.kmscon.extraConfig = ''
     # Default font size. Font size can still be changed using the following
     # keyboard shortcuts:

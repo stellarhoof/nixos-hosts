@@ -5,14 +5,14 @@
 
 {
   inputs = {
-    # Using nixpkgs unstable to:
-    # - Use hyprland via home-manager
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
+    niri.url = "github:sodiboo/niri-flake";
   };
   outputs =
     inputs@{
@@ -27,11 +27,8 @@
         specialArgs = { inherit inputs; };
         modules = [
           # https://github.com/NixOS/nixos-hardware/blob/master/framework
-          nixos-hardware.nixosModules.framework
-          ./hosts/framework/configuration.nix
-          # Reuse `nixpkgs` input in the system-wide flake registry so commands
-          # such as `nix shell nixpkgs#<pkg>` don't have to re-download it.
-          { nix.registry.nixpkgs.flake = nixpkgs; }
+          nixos-hardware.nixosModules.framework-11th-gen-intel
+          ./hosts/framework/default.nix
         ];
       };
     };
