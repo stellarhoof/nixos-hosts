@@ -1,9 +1,28 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
-  # Set default user login shell.
+  imports = [
+    # ../../desktops/hyprland.nix
+    # ../../desktops/niri.nix
+    ../../desktops/cosmic.nix
+  ];
+
+  # Do not start ssh support via gcr.
+  services.gnome.gcr-ssh-agent.enable = false;
+
+  # Do not start `gnome-keyring` in `--login` mode because it exports
+  # `SSH_AUTH_SOCK` pointing to a non-existing socket, which prevents ssh from
+  # connecting to a running ssh agent.
+  #
+  # See `man gnome-keyring-daemon(1)`
+  security.pam.services.greetd.enableGnomeKeyring = false;
+
+  # Enable the fish shell.
   programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
+
+  # Daemonless container engine for developing, managing, and running OCI
+  # Containers. It is a drop-in replacement for the `docker` command.
+  virtualisation.podman.enable = true;
 
   # If set to `true`, you are free to add new users and groups to the
   # system with the ordinary `useradd` and `groupadd` commands. On
@@ -28,6 +47,8 @@
 
     # Short description of the user account, typically the user's full name.
     description = "Alejandro Hernandez";
+
+    shell = pkgs.fish;
 
     # Use `mkpasswd <pass>` to generate this hash.
     hashedPassword = "$6$asKE3fbnF.L$LddoU0RvwWISACYJsw2Jy3LLjCr.p/ss7W2nMNYkoR6E0WzY7afwxW9JmLoPuQmLvTUfIzVyujGuScSqQlog5.";

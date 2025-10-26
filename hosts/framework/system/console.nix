@@ -1,18 +1,6 @@
 { pkgs, config, ... }:
 
 {
-  # Minimal and flexible TTY-based login manager daemon.
-  services.greetd.enable = true;
-
-  # The greeter is what prompts the user for login credentials.
-  services.greetd.settings.default_session = {
-    # `tuigreet` is a simple TTY greeter. Everything after `--cmd` is what gets
-    # run after the user logs in successfully.
-    # NOTE: The `uwsm` module has to be enabled for this to work.
-    command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'uwsm start default'";
-    user = "ah";
-  };
-
   # kmscon is a userpace VT (virtual terminal) with more features than the
   # standard linux console:
   # - Full unicode support
