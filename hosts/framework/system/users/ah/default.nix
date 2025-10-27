@@ -7,6 +7,13 @@
     ../../desktops/cosmic.nix
   ];
 
+  # This overrides `SSH_AUTH_SOCK` to a non-existing socket file.
+  # I tried every other option to fix this without disabling `gnome-keyring` but
+  # they didn't work so the nuclear option it is. If something fails in the
+  # future because it needs the `gnome-keyring` daemon to be present I'll
+  # re-evaluate.
+  services.gnome.gnome-keyring.enable = false;
+
   # Do not start ssh support via gcr.
   services.gnome.gcr-ssh-agent.enable = false;
 
