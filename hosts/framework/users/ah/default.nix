@@ -3,6 +3,7 @@
 {
   imports = [
     ../../../../shared/terminal/default.nix
+    ../../../../shared/gui/alacritty.nix
     # ./desktops/hyprland/default.nix
     # ./desktops/niri/default.nix
     ./desktops/cosmic/default.nix
