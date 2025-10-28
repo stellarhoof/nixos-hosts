@@ -35,6 +35,8 @@ ln -sf $PWD $PASSWORD_STORE_DIR
 
 # Import private gpg key.
 gpg --import store-key.asc
+# Trust public key. After the below command, enter `trust`, 5, and then `quit`.
+gpg --edit-key azure.satellite@gmail.com
 
 # Setup SSH authentication with github
 mkdir -p ~/.ssh
