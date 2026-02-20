@@ -9,13 +9,13 @@
 {
   imports = [
     ../../../../shared/terminal/default.nix
-    ../../../../shared/gui/brave.nix
+    # ../../../../shared/gui/brave.nix
     ../../../../shared/gui/alacritty.nix
     ./programs/ghostty.nix
     ./programs/kitty.nix
   ];
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
   home.username = "ah";
   home.homeDirectory = "/Users/ah";
   home.sessionPath = [ "${config.home.homeDirectory}/.docker/bin" ];

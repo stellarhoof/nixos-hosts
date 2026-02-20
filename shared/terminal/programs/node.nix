@@ -74,6 +74,5 @@ in
     prefix=${NPM_PACKAGES}
     cache=${cacheHome}/npm
     init-module=${configHome}/npm/npm-init.js
-    globalignorefile=${configHome}/npm/npmignore
   '';
 }

@@ -17,7 +17,7 @@ in
   );
 
   # Support SSH authentication via the gpg daemon.
-  services.gpg-agent.enableSshSupport = true;
+  services.gpg-agent.enableSshSupport = !pkgs.stdenv.isDarwin;
 
   # Cache decrypted keys for a long time
   services.gpg-agent.defaultCacheTtl = ttl;
