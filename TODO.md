@@ -1,0 +1,5 @@
+- Keybind to show niri keybinds cheatsheet
+- Adjust external monitor brightness with brightness keys
+- Proper sleep or alternative hybernation to save battery
+  - Do this after a certain amount of time
+- Switch foot between light/dark themes based off of dank's light/dark theme toggle

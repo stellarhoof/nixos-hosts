@@ -10,7 +10,7 @@
   imports = [
     ../../../../shared/terminal/default.nix
     # ../../../../shared/gui/brave.nix
-    ../../../../shared/gui/alacritty.nix
+    ./programs/alacritty.nix
     ./programs/ghostty.nix
     ./programs/kitty.nix
   ];

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}:
+
+{
   services.dunst.enable = true;
 
   services.dunst.iconTheme = {
@@ -34,11 +40,11 @@
       background = "#${base01}";
       foreground = "#${base03}";
     };
-    urgency_normal = rec {
+    urgency_normal = {
       background = "#${base02}";
       foreground = "#${base05}";
     };
-    urgency_critical = rec {
+    urgency_critical = {
       background = "#${base08}";
       foreground = "#${base06}";
     };

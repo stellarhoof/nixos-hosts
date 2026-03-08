@@ -5,7 +5,7 @@
 # nix flake update
 #
 # # Update single input
-# nix flake lock --update-input <name>
+# nix flake update <name>
 #
 # # Inspect value of configuration option
 # nixos-option {option}
@@ -41,21 +41,33 @@
     neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
+    stylix.url = "github:nix-community/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+
     # Do not override the nixpkgs input for these flakes as it will
     # disable the cachix cache for them. Not sure why but trust me.
     niri.url = "github:sodiboo/niri-flake";
     hyprland.url = "github:hyprwm/Hyprland";
+
+    dms.url = "github:AvengeMedia/DankMaterialShell/stable";
+    dms.inputs.nixpkgs.follows = "nixpkgs";
+
+    matugen.url = "github:InioX/Matugen";
+    matugen.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     {
-      self,
       nixpkgs,
       nixos-hardware,
       home-manager,
       neovim-overlay,
+      stylix,
       niri,
       hyprland,
+      dms,
+      matugen,
+      ...
     }:
     {
       nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
@@ -75,16 +87,16 @@
       };
 
       homeConfigurations."ah@framework" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-        };
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inputs = {
             inherit
-              nixpkgs
               neovim-overlay
+              stylix
               niri
               hyprland
+              dms
+              matugen
               ;
           };
         };
@@ -92,13 +104,10 @@
       };
 
       homeConfigurations."ah@mbpro" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "aarch64-darwin";
-        };
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
         extraSpecialArgs = {
           inputs = {
             inherit
-              nixpkgs
               home-manager
               neovim-overlay
               ;

@@ -1,4 +1,9 @@
-{ config, ... }: {
+{
+  config,
+  ...
+}:
+
+{
   # Zathura is a keyboard-focused document viewer
   programs.zathura.enable = true;
 
@@ -7,8 +12,10 @@
     u = "scroll half-up";
   };
 
-  programs.zathura.options = with config.colorScheme.palette;
-    with config.lib.fonts; {
+  programs.zathura.options =
+    with config.colorScheme.palette;
+    with config.lib.fonts;
+    {
       # Show hidden files when opening a document
       show-hidden = true;
 

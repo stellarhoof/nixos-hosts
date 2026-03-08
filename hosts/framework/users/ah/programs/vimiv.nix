@@ -1,8 +1,14 @@
-{ pkgs, config, ... }: {
+{
+  pkgs,
+  config,
+  ...
+}:
+
+{
   # vimiv is an image viewer with vim-style keybindings
   home.packages = with pkgs; [ vimiv-qt ];
 
-  xdg.configFile."vimiv/vimiv.conf".text = with config.colorScheme.palette; ''
+  xdg.configFile."vimiv/vimiv.conf".text = ''
     [GENERAL]
     ; Use defined styles below
     style = custom
@@ -14,8 +20,10 @@
     show_hidden = true
   '';
 
-  xdg.configFile."vimiv/styles/custom".text = with config.colorScheme.palette;
-    with config.lib.fonts; ''
+  xdg.configFile."vimiv/styles/custom".text =
+    with config.colorScheme.palette;
+    with config.lib.fonts;
+    ''
       [STYLE]
       font = ${toString sans.size}pt ${sans.name}
 

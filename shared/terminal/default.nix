@@ -1,10 +1,9 @@
 {
   config,
-  lib,
   pkgs,
-  inputs,
   ...
 }:
+
 {
   imports = [
     ./programs/direnv.nix
@@ -13,6 +12,7 @@
     ./programs/git.nix
     ./programs/gpg.nix
     ./programs/node.nix
+    ./programs/rust.nix
     ./programs/neovim.nix
     ./programs/pass.nix
     ./programs/python.nix
@@ -83,7 +83,7 @@
   programs.htop.enable = true;
 
   # Simple aliases that are compatible across all shells.
-  home.shellAliases = rec {
+  home.shellAliases = {
     cp = "cp -i";
     df = "duf";
     du = "dua";
@@ -120,7 +120,7 @@
     GEM_HOME = "${dataHome}/gem";
     GEM_SPEC_CACHE = "${cacheHome}/gem";
     GOPATH = "${dataHome}";
-    GTK2_RC_FILES = "${configHome}/gtk-2.0/gtkrc";
+    # GTK2_RC_FILES = "${configHome}/gtk-2.0/gtkrc";
     ICEAUTHORITY = "${cacheHome}/ICEauthority";
     INPUTRC = "${configHome}/readline/inputrc";
     LESSHISTFILE = "${cacheHome}/less/history";

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -24,12 +24,10 @@
   # See `man gnome-keyring-daemon(1)`
   security.pam.services.greetd.enableGnomeKeyring = false;
 
+  virtualisation.podman.enable = true;
+
   # Enable the fish shell.
   programs.fish.enable = true;
-
-  # Daemonless container engine for developing, managing, and running OCI
-  # Containers. It is a drop-in replacement for the `docker` command.
-  virtualisation.podman.enable = true;
 
   # If set to `true`, you are free to add new users and groups to the
   # system with the ordinary `useradd` and `groupadd` commands. On
@@ -55,6 +53,7 @@
     # Short description of the user account, typically the user's full name.
     description = "Alejandro Hernandez";
 
+    # Default shell for this user
     shell = pkgs.fish;
 
     # Use `mkpasswd <pass>` to generate this hash.
@@ -71,5 +70,7 @@
       # is required to set the backlight for example.
       "video"
     ];
+
+    packages = with pkgs; [ podman-compose ];
   };
 }

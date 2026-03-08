@@ -1,13 +1,23 @@
-{ ... }:
+# Lots of stuff:
+# https://github.com/cosmic-utils/cosmic-project-collection
+
+{ pkgs, ... }:
 
 {
   imports = [ ../../../../../../shared/gui/brave.nix ];
 
-  # programs.firefox.enable = true;
+  home.packages = with pkgs; [
+    wl-clipboard
+  ];
 
-  # # See https://wiki.nixos.org/wiki/COSMIC
-  # programs.firefox.preferences = {
-  #   # Disable libadwaita theme for Firefox
-  #   "widget.gtk.libadwaita-colors.enabled" = false;
-  # };
+  # Terminals
+  programs.foot.enable = true;
+  programs.foot.settings = {
+    csd.preferred = "none";
+  };
+
+  programs.alacritty.enable = true;
+  programs.alacritty.settings = {
+    window.decorations = "None";
+  };
 }
