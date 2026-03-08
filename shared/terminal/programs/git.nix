@@ -28,7 +28,7 @@
 
   # Only using hub for `hub sync`, see https://github.com/cli/cli/issues/1722
   home.packages = with pkgs; [
-    gitAndTools.hub
+    hub
     git-filter-repo
     bfg-repo-cleaner # Removes large or troublesome blobs like git-filter-branch does
   ];

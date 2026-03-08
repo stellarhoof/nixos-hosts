@@ -37,7 +37,7 @@
     unrar # File archiver
     unzip # File archiver
     wget # Non-interactive web downloader
-    xorg.lndir # Create a directory of symbolic links
+    lndir # Create a directory of symbolic links
     yt-dlp # Web video downloader
   ];
 

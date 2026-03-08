@@ -6,7 +6,7 @@
 }:
 {
   programs.neovim.enable = true;
-  programs.neovim.package = inputs.neovim-overlay.packages.${pkgs.system}.default;
+  programs.neovim.package = inputs.neovim-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   programs.neovim.defaultEditor = true;
   programs.neovim.viAlias = true;

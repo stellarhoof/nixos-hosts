@@ -5,8 +5,9 @@ let
 in
 {
   home.packages = with pkgs; [
-    nodejs_24
-    corepack_24
+    nodejs
+    yarn-berry
+    pnpm
   ];
 
   home.sessionPath = [
@@ -14,8 +15,8 @@ in
     "./node_modules/.bin"
   ];
 
-  home.shellAliases.y = "corepack yarn";
-  home.shellAliases.p = "corepack pnpm";
+  home.shellAliases.y = "yarn";
+  home.shellAliases.p = "pnpm";
 
   home.file.".local/bin/node-repl.mjs" = {
     executable = true;
