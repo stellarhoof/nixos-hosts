@@ -1,37 +1,35 @@
-{ pkgs, config, ... }:
-let mono = config.lib.fonts.mono;
-in {
+{
+  # pkgs,
+  # config,
+  ...
+}:
+
+{
+  programs.astroid.enable = true;
+
   programs.astroid.extraConfig = {
     astroid.log.level = "warning";
-
     # Disable automatic polling
     poll.interval = 0;
-
-    # Font for messages list.
-    thread_index.cell.font_description = "${mono.name} ${toString mono.size}";
   };
 
-  xdg.configFile."astroid/ui/part.scss".text = ''
-    /* ui-version: 5 (do not change when modifying theme for yourself) */
+  # # This file defines the look of the messages body parts.
+  # xdg.configFile."astroid/ui/part.scss".text = ''
+  #   $font-base-size: ${builtins.toString config.stylix.fonts.sizes.applications}pt;
+  #   $font-mono: ${config.stylix.fonts.monospace.name};
+  #   $font-sans: ${config.stylix.fonts.sansSerif.name};
+  #   $font-family-default: $font-sans;
+  #   @import "${pkgs.astroid}/share/astroid/ui/part.scss";
+  # '';
 
-    $font-base-size: 10pt;
-    $font-mono: ${mono.name};
-    $font-sans: $font-mono;
-    $font-family-default: $font-sans;
-
-    @import "${pkgs.astroid}/share/astroid/ui/part.scss";
-  '';
-
-  xdg.configFile."astroid/ui/thread-view.scss".text = ''
-    /* ui-version: 5 (do not change when modifying theme for yourself) */
-
-    $font-base-size: 10pt;
-    $font-mono: ${mono.name};
-    $font-sans: $font-mono;
-    $font-family-default: $font-sans;
-
-    @import "${pkgs.astroid}/share/astroid/ui/thread-view.scss";
-  '';
+  # # The thread view uses Webkit to render the messages.
+  # xdg.configFile."astroid/ui/thread-view.scss".text = ''
+  #   $font-base-size: ${builtins.toString config.stylix.fonts.sizes.applications}pt;
+  #   $font-mono: ${config.stylix.fonts.monospace.name};
+  #   $font-sans: ${config.stylix.fonts.sansSerif.name};
+  #   $font-family-default: $font-sans;
+  #   @import "${pkgs.astroid}/share/astroid/ui/thread-view.scss";
+  # '';
 
   # Rid-fucking-diculous. Had to get this list by cloning
   # https://github.com/astroidmail/astroid and running

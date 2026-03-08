@@ -6,13 +6,18 @@
 {
   imports = [ ../../../../../../shared/gui/brave.nix ];
 
-  # May be able to replace with
-  # https://github.com/cosmic-utils/clipboard-manager once it becomes
-  # available in nixos.
-  services.cliphist.enable = true;
+  home.packages = with pkgs; [
+    wl-clipboard
+  ];
 
-  home.packages = [ pkgs.wl-clipboard ];
+  # Terminals
+  programs.foot.enable = true;
+  programs.foot.settings = {
+    csd.preferred = "none";
+  };
 
-  # See https://wiki.nixos.org/wiki/COSMIC
-  home.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+  programs.alacritty.enable = true;
+  programs.alacritty.settings = {
+    window.decorations = "None";
+  };
 }

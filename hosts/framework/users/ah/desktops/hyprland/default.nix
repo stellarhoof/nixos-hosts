@@ -1,38 +1,31 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
 
 {
   imports = [
-    # ./colors.nix
-    # ./fonts.nix
-    # ./email.nix
-    # ./media-keys-scripts.nix
-    # ./fontconfig.nix
-    # ./gtk.nix
     # ./mimeapps.nix
-    # ./programs/dunst.nix
-    # ./programs/mpv.nix
-    # ./programs/firefox.nix
-    # ./programs/vimiv.nix
-    # ./programs/zathura.nix
-    # ./qt/default.nix
-    # ./wayland.nix
+    ../../programs/dunst.nix
+    ../../programs/mpv.nix
+    ../../programs/vimiv.nix
+    ../../programs/zathura.nix
   ];
+
+  # Allow fontconfig to discover installed fonts. It runs `fc-cache -f`.
+  fonts.fontconfig.enable = true;
 
   # Run `hyprctl -j binds` to show all keybindings
   wayland.windowManager.hyprland.enable = true;
+
   wayland.windowManager.hyprland.systemd.enable = false;
+
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
     "$browser" = "firefox";
     "$terminal" = "foot";
-    "$menu" = "wofi --show drun";
-
-    exec-once = "$terminal";
+    "$menu" = "rofi -show drun";
 
     input = {
       kb_layout = "us";
@@ -79,34 +72,34 @@
     ];
   };
 
-  programs.foot.enable = true;
-  programs.wofi.enable = true;
   programs.firefox.enable = true;
+
+  programs.rofi.enable = true;
+
+  # There are lots of important env vars in `home.sessionVariables` that are not
+  # available at the time Hyprland is started. This is a workaround to make sure
+  # that Hyprland inherits the environment from fish.
+  # See https://github.com/nix-community/home-manager/issues/2659
+  programs.fish.loginShellInit = ''
+    if test (tty) = /dev/tty1; or test (tty) = /dev/pts/0
+      exec ${config.home.sessionVariables.XDG_CURRENT_DESKTOP}
+    end
+  '';
 
   home.packages = with pkgs; [
     cachix
-    # libnotify # Send notifications to a desktop notifications daemon
-    # # transmission_4-qt # Just to have a QT app
-    # transmission_4-gtk # BitTorrent downloader
+    # Send notifications to a desktop notifications daemon
+    libnotify
+    # Screenshot tool
+    grimblast
+    # Command line clipboard utilities for wayland
+    wl-clipboard
   ];
 
-  # Some terminal applications rely on these variables instead of the XDG apps
-  # standard (`xdg-open` et.al)
   home.sessionVariables = {
+    # Some terminal applications rely on these variables instead of the XDG apps
+    # standard (`xdg-open` et.al)
     BROWSER = "firefox";
     TERMINAL = "foot";
   };
-
-  # # Whether new or changed services that are wanted by active targets
-  # # should be started. Additionally, stop obsolete services from the
-  # # previous generation.
-  # systemd.user.startServices = false;
-
-  # # The cursor theme and settings.
-  # home.pointerCursor.name = "graphite-dark-nord";
-  # home.pointerCursor.package = pkgs.graphite-cursors;
-  # home.pointerCursor.size = 24;
-
-  # # Also apply cursor to gtk configuration
-  # home.pointerCursor.gtk.enable = true;
 }

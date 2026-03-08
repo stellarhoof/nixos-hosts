@@ -5,7 +5,7 @@
 }:
 
 {
-  programs.alacritty.enable = false;
+  programs.alacritty.enable = true;
   programs.alacritty.theme = "catppuccin_latte";
   programs.alacritty.settings = {
     window = {

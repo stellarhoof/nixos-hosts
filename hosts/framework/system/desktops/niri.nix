@@ -19,6 +19,8 @@
     user = "ah";
   };
 
+  programs.uwsm.enable = true;
+
   programs.uwsm.waylandCompositors.niri = {
     prettyName = "Niri";
     comment = "Niri compositor managed by UWSM";
@@ -28,7 +30,7 @@
   };
 
   # It is recommended to use niri via its overlay instead of using the flake
-  # output directly like hyprland above.
+  # output directly.
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
 
   # Enable the Niri Wayland compositor. This is required even when using
@@ -36,13 +38,11 @@
   programs.niri.enable = true;
 
   # Use the niri package from the overlay above.
-  programs.niri.package = pkgs.niri-stable;
+  programs.niri.package = pkgs.niri-unstable;
 
-  # Blueman is a GTK frontend to BlueZ
-  services.blueman.enable = config.hardware.bluetooth.enable;
-
-  # Set screen backlight
-  # brillo -S 20 -> set to 20%
-  # brillo -G -> get current level
-  hardware.brillo.enable = true;
+  # UPower is an abstraction for enumerating power devices, listening to device
+  # events and querying history and statistics. Any application or service on
+  # the system can access the org.freedesktop.UPower service via the system
+  # message bus.
+  services.upower.enable = true;
 }
