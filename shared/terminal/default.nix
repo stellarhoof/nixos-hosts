@@ -29,16 +29,26 @@
     gnused # GNU sed, a batch stream editor
     jq # Json formatter
     killall # Kill processes by name
-    nixfmt # Nix language formatter
+    lndir # Create a directory of symbolic links
     ngrok # Reverse proxy
+    # Agent updates pretty frequently so I'll manage it globally via npm
+    # pi-coding-agent # Coding agent
     qrencode # Encode input data in a QR code and save as image
     tokei # Count LOC
     trash-cli # Implements the XDG trash can spec
     unrar # File archiver
     unzip # File archiver
+    watson # Time tracking
     wget # Non-interactive web downloader
-    lndir # Create a directory of symbolic links
+    worktrunk # Git worktree management for parallel AI agent workflows
     yt-dlp # Web video downloader
+    ## Fonts
+    fira-code
+    monaspace
+    ibm-plex
+    jetbrains-mono
+    roboto-mono
+    anonymous-pro-fonts
   ];
 
   # Not entirely sure why this is needed but it fixes some things.
@@ -77,7 +87,7 @@
 
   # Whether to generate the manual page index caches using mandb(8). This allows
   # searching for a page or keyword using utilities like apropos(1).
-  programs.man.generateCaches = true;
+  # programs.man.generateCaches = true;
 
   # Process/system monitor
   programs.htop.enable = true;
@@ -95,6 +105,7 @@
     tl = "trash-list";
     tp = "trash-put";
     tr = "trash-rm";
+    zq = "zoxide query -i";
   };
 
   home.sessionPath = [

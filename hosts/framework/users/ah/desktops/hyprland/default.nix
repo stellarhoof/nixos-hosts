@@ -8,7 +8,6 @@
   imports = [
     # ./mimeapps.nix
     ../../programs/dunst.nix
-    ../../programs/mpv.nix
     ../../programs/vimiv.nix
     ../../programs/zathura.nix
   ];

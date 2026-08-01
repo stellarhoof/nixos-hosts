@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
 {
   # Better looking diffs
-  programs.diff-so-fancy.enable = true;
-  programs.diff-so-fancy.enableGitIntegration = true;
+  programs.delta.enable = true;
+  programs.delta.enableGitIntegration = true;
+  programs.delta.options = {
+    side-by-side = true;
+  };
 
   # Enable Git large file storage
   programs.git.lfs.enable = true;

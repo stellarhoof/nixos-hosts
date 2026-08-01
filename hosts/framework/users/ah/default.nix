@@ -11,7 +11,7 @@
 
   home.username = "ah";
   home.homeDirectory = "/home/ah";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   home.sessionVariables = {
     # Hint electron apps to use Wayland
@@ -36,6 +36,7 @@
   # https://wiki.archlinux.org/title/XDG_user_directories
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
+  xdg.userDirs.setSessionVariables = true;
 
   # Do not create these directories
   xdg.userDirs.desktop = null;
@@ -43,6 +44,5 @@
   xdg.userDirs.templates = null;
 
   # Create these custom directories
-  xdg.userDirs.CODE = "${config.home.homeDirectory}/Code";
   xdg.userDirs.NOTES = "${config.home.homeDirectory}/Notes";
 }

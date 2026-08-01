@@ -5,7 +5,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    nodejs
+    nodejs_latest
     yarn-berry
     pnpm
   ];
@@ -17,6 +17,7 @@ in
 
   home.shellAliases.y = "yarn";
   home.shellAliases.p = "pnpm";
+  home.shellAliases.claude = "SHELL=/bin/bash command claude";
 
   home.file.".local/bin/node-repl.mjs" = {
     executable = true;

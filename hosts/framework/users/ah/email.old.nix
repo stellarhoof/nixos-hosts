@@ -240,7 +240,7 @@ in
       {
         personal = null;
         sidekick = null;
-        smartprocure = null;
+        govspend = null;
       };
 
   # Select default mail program based on some order.
