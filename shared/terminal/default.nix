@@ -31,8 +31,6 @@
     killall # Kill processes by name
     lndir # Create a directory of symbolic links
     ngrok # Reverse proxy
-    # Agent updates pretty frequently so I'll manage it globally via npm
-    # pi-coding-agent # Coding agent
     qrencode # Encode input data in a QR code and save as image
     tokei # Count LOC
     trash-cli # Implements the XDG trash can spec
@@ -42,6 +40,7 @@
     wget # Non-interactive web downloader
     worktrunk # Git worktree management for parallel AI agent workflows
     yt-dlp # Web video downloader
+
     ## Fonts
     fira-code
     monaspace
@@ -49,6 +48,7 @@
     jetbrains-mono
     roboto-mono
     anonymous-pro-fonts
+    fixedsys-excelsior
   ];
 
   # Not entirely sure why this is needed but it fixes some things.

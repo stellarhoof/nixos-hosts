@@ -5,15 +5,16 @@ let
     # `brew install font-sf-mono`.
     sfMono = {
       font-family = "SF Mono";
+      # font-thicken = true;
       # font-style = "Medium";
       # font-style-italic = "Medium Italic";
       # font-style-bold = "Heavy";
       # font-style-bold-italic = "Heavy Italic";
       adjust-cell-width = -1;
-      # font-size = 15;
-      # adjust-cell-height = 22;
-      font-size = 16;
-      adjust-cell-height = 20;
+      font-size = 15;
+      adjust-cell-height = 22;
+      # font-size = 16;
+      # adjust-cell-height = 20;
     };
     ibmPlex = {
       font-family = "IBM Plex Mono";
@@ -29,13 +30,13 @@ let
       # font-family = "Iosevka";
       font-family = "Iosevka Slab";
       adjust-cell-width = -1;
-      font-size = 16;
+      font-size = 17;
       adjust-cell-height = 15;
     };
     monaSpace = {
       # font-family = "Monaspace Argon";
-      # font-family = "Monaspace Krypton";
-      font-family = "Monaspace Neon";
+      font-family = "Monaspace Krypton";
+      # font-family = "Monaspace Neon";
       # font-family = "Monaspace Radon";
       # font-family = "Monaspace Xenon";
       adjust-cell-width = -1;
@@ -45,10 +46,10 @@ let
       # adjust-cell-height = 26;
       # font-size = 14;
       # adjust-cell-height = 1;
-      font-size = 14;
-      adjust-cell-height = 23;
-      # font-size = 15;
-      # adjust-cell-height = 21;
+      # font-size = 14;
+      # adjust-cell-height = 23;
+      font-size = 15;
+      adjust-cell-height = 21;
       font-feature = "calt"; # Supposedly turns on font healing
     };
     monoLisa = {
@@ -110,14 +111,13 @@ in
 
   programs.ghostty.package = null;
 
-  programs.ghostty.settings = fonts.sfMono // {
+  programs.ghostty.settings = fonts.monaSpace // {
     # Font config
     adjust-underline-position = 4;
     adjust-underline-thickness = 2;
 
     # Maximize window on startup
-    window-width = 1000;
-    window-height = 1000;
+    maximize = true;
     window-padding-x = 0;
     window-padding-y = 0;
 
@@ -131,7 +131,10 @@ in
 
     # theme = "light:Nvim Light,dark:Nvim Dark";
     theme = "light:Zenbones Light,dark:Zenbones Dark";
+    background = "#e8e4e3";
+    cursor-color = "#2c363c";
     cursor-style-blink = false;
+    adjust-cursor-thickness = 5;
     unfocused-split-opacity = 1;
     mouse-hide-while-typing = true;
     window-theme = "auto";

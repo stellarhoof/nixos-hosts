@@ -11,6 +11,7 @@
   home.packages = with pkgs; [
     emmylua-ls # Lua language server
     jq # CLI JSON processor
+    kulala-fmt # Formatter for HTTP files
     nixd # Nix language server
     nixfmt # Nix language formatter
     shfmt # Shell parser and formatter

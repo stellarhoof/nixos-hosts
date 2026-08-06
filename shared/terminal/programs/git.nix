@@ -33,6 +33,7 @@
   home.packages = with pkgs; [
     hub
     git-filter-repo
+    git-get # Organize remote repositories locally
     bfg-repo-cleaner # Removes large or troublesome blobs like git-filter-branch does
   ];
 
@@ -144,6 +145,9 @@
   };
   programs.git.settings."color \"diff\"" = {
     meta = "cyan bold";
+  };
+  programs.git.settings.gitget = {
+    root = config.xdg.userDirs.projects;
   };
 
   # TODO: Add to programs.fish.functions
