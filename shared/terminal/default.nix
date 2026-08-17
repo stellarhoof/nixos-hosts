@@ -43,7 +43,6 @@
 
     ## Fonts
     fira-code
-    monaspace
     ibm-plex
     jetbrains-mono
     roboto-mono

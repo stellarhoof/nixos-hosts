@@ -33,25 +33,6 @@ let
       font-size = 17;
       adjust-cell-height = 15;
     };
-    monaSpace = {
-      # font-family = "Monaspace Argon";
-      font-family = "Monaspace Krypton";
-      # font-family = "Monaspace Neon";
-      # font-family = "Monaspace Radon";
-      # font-family = "Monaspace Xenon";
-      adjust-cell-width = -1;
-      # font-size = 13;
-      # adjust-cell-height = 4;
-      # font-size = 13;
-      # adjust-cell-height = 26;
-      # font-size = 14;
-      # adjust-cell-height = 1;
-      # font-size = 14;
-      # adjust-cell-height = 23;
-      font-size = 15;
-      adjust-cell-height = 21;
-      font-feature = "calt"; # Supposedly turns on font healing
-    };
     monoLisa = {
       font-family = "MonoLisa";
       adjust-cell-width = -2;
@@ -111,7 +92,7 @@ in
 
   programs.ghostty.package = null;
 
-  programs.ghostty.settings = fonts.monaSpace // {
+  programs.ghostty.settings = fonts.operatorMono // {
     # Font config
     adjust-underline-position = 4;
     adjust-underline-thickness = 2;
